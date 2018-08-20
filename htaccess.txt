@@ -1,0 +1,30 @@
+﻿Options -Indexes
+DirectoryIndex server.php
+php_flag display_errors on
+php_value error_reporting 2039
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+
+ErrorDocument 404 /error404.php
+
+#驗證封包瀏覽網站是否正確瀏覽器
+#不分大小寫比對 HTTP表頭
+RewriteCond %{REQUEST_METHOD} ^(HEAD|GET) [NC]
+#http表頭資訊比對是否有 Range 欄位資訊
+RewriteCond %{HTTP:Range} ([0-9]*-[0-9]*)(\s*,\s*[0-9]*-[0-9]*)+
+#如果上述符合,即將 http Request 要求中 Range 欄位置換掉回覆 Forbidden
+RewriteRule .* - [F]
+
+
+</IfModule>
+
+
+
+
+
+
+
+
+
+
